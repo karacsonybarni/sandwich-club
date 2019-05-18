@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
-import com.udacity.sandwichclub.utils.JsonUtils;
+import com.udacity.sandwichclub.utils.json.JsonUtils;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -25,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
+            return;
         }
 
         int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
