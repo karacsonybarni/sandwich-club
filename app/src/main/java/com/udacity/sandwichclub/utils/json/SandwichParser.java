@@ -7,6 +7,10 @@ import java.util.List;
 class SandwichParser extends JsonParser {
 
     private static final String MAIN_NAME = "mainName";
+    private static final String ALSO_KNOWN_AS = "alsoKnownAs";
+    private static final String PLACE_OF_ORIGIN = "placeOfOrigin";
+    private static final String DESCRIPTION = "description";
+    private static final String IMAGE = "image";
     private static final String INGREDIENTS = "ingredients";
 
     private Sandwich sandwich;
@@ -32,6 +36,18 @@ class SandwichParser extends JsonParser {
             case MAIN_NAME:
                 parseMainName();
                 break;
+            case ALSO_KNOWN_AS:
+                parseAlsoKnownAs();
+                break;
+            case PLACE_OF_ORIGIN:
+                parsePlaceOfOrigin();
+                break;
+            case DESCRIPTION:
+                parseDescription();
+                break;
+            case IMAGE:
+                parseImage();
+                break;
             case INGREDIENTS:
                 parseIngredients();
                 break;
@@ -43,6 +59,30 @@ class SandwichParser extends JsonParser {
     private void parseMainName() {
         String mainName = parseStringValueOfField();
         sandwich.setMainName(mainName);
+        parseNext();
+    }
+
+    private void parseAlsoKnownAs() {
+        List<String> alsoKnownAs = parseArrayValueOfField();
+        sandwich.setAlsoKnownAs(alsoKnownAs);
+        parseNext();
+    }
+
+    private void parsePlaceOfOrigin() {
+        String placeOfOrigin = parseStringValueOfField();
+        sandwich.setPlaceOfOrigin(placeOfOrigin);
+        parseNext();
+    }
+
+    private void parseDescription() {
+        String description = parseStringValueOfField();
+        sandwich.setDescription(description);
+        parseNext();
+    }
+
+    private void parseImage() {
+        String image = parseStringValueOfField();
+        sandwich.setImage(image);
         parseNext();
     }
 

@@ -19,70 +19,18 @@ abstract class JsonParser {
             return;
         }
 
-        switch (json.charAt(charPosition)) {
-            case '{':
-                onOpenCurlyBracket();
-                break;
-            case '}':
-                onCloseCurlyBracket();
-                break;
-            case '"':
-                onQuotes();
-                break;
-            case ':':
-                onColon();
-                break;
-            case ',':
-                onComma();
-                break;
-            case ' ':
-                onSpace();
-                break;
-            case '[':
-                onOpenSquareBracket();
-                break;
-            case ']':
-                onCloseSquareBracket();
-                break;
+        boolean isAtQuotes = json.charAt(charPosition) == '"';
+        if (isAtQuotes) {
+            onQuotes();
+        } else {
+            charPosition++;
+            parseNext();
         }
-    }
-
-    private void onOpenCurlyBracket() {
-        skipAndParseNext();
-    }
-
-    private void onCloseCurlyBracket() {
-        skipAndParseNext();
     }
 
     private void onQuotes() {
         String fieldName = parseString();
         parseField(fieldName);
-    }
-
-    private void onColon() {
-        skipAndParseNext();
-    }
-
-    private void onComma() {
-        skipAndParseNext();
-    }
-
-    private void onSpace() {
-        skipAndParseNext();
-    }
-
-    private void onOpenSquareBracket() {
-        skipAndParseNext();
-    }
-
-    private void onCloseSquareBracket() {
-        skipAndParseNext();
-    }
-
-    private void skipAndParseNext() {
-        charPosition++;
-        parseNext();
     }
 
     private String parseString() {

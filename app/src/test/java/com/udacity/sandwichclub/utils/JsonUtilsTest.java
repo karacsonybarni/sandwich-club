@@ -25,6 +25,10 @@ public class JsonUtilsTest {
     public void parseSandwichJson() {
         Sandwich sandwich = JsonUtils.parseSandwichJson(bosnaJson);
         assertThat(sandwich.getMainName()).isEqualTo("Bosna");
+        assertThat(sandwich.getAlsoKnownAs()).containsExactly("Bosner");
+        assertThat(sandwich.getPlaceOfOrigin()).isEqualTo("Austria");
+        assertThat(sandwich.getDescription()).isEqualTo("Bosna is a spicy Austrian fast food dish, said to have originated in either Salzburg or Linz. It is now popular all over western Austria and southern Bavaria.");
+        assertThat(sandwich.getImage()).isEqualTo("https://upload.wikimedia.org/wikipedia/commons/c/ca/Bosna_mit_2_Bratw%C3%BCrsten.jpg");
         assertThat(sandwich.getIngredients()).containsExactly("White bread", "Bratwurst", "Onions", "Tomato ketchup", "Mustard", "Curry powder");
     }
 }
