@@ -3,7 +3,9 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -14,6 +16,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+
+    private Sandwich sandwich;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
 
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
         String json = sandwiches[position];
-        Sandwich sandwich = JsonUtils.parseSandwichJson(json);
+        sandwich = JsonUtils.parseSandwichJson(json);
         if (sandwich == null) {
             // Sandwich data unavailable
             closeOnError();
@@ -58,6 +62,16 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
+        TextView alsoKnownTv = findViewById(R.id.also_known_text);
+        alsoKnownTv.setText(TextUtils.join(", ", sandwich.getAlsoKnownAs()));
 
+        TextView descriptionTv = findViewById(R.id.description_text);
+        descriptionTv.setText(sandwich.getDescription());
+
+        TextView ingredientsTv = findViewById(R.id.ingredients_text);
+        ingredientsTv.setText(TextUtils.join(", ", sandwich.getIngredients()));
+
+        TextView originTv = findViewById(R.id.origin_text);
+        originTv.setText(sandwich.getPlaceOfOrigin());
     }
 }
