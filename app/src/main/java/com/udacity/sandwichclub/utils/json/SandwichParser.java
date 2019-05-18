@@ -2,9 +2,12 @@ package com.udacity.sandwichclub.utils.json;
 
 import com.udacity.sandwichclub.model.Sandwich;
 
+import java.util.List;
+
 class SandwichParser extends JsonParser {
 
     private static final String MAIN_NAME = "mainName";
+    private static final String INGREDIENTS = "ingredients";
 
     private Sandwich sandwich;
 
@@ -29,14 +32,23 @@ class SandwichParser extends JsonParser {
             case MAIN_NAME:
                 parseMainName();
                 break;
+            case INGREDIENTS:
+                parseIngredients();
+                break;
             default:
                 parseNext();
         }
     }
 
     private void parseMainName() {
-        String mainName = parseFieldValue();
+        String mainName = parseStringValueOfField();
         sandwich.setMainName(mainName);
+        parseNext();
+    }
+
+    private void parseIngredients() {
+        List<String> ingredients = parseArrayValueOfField();
+        sandwich.setIngredients(ingredients);
         parseNext();
     }
 }

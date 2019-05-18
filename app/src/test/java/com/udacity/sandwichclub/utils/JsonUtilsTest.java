@@ -22,8 +22,9 @@ public class JsonUtilsTest {
             "}";
 
     @Test
-    public void testMainName() {
+    public void parseSandwichJson() {
         Sandwich sandwich = JsonUtils.parseSandwichJson(bosnaJson);
         assertThat(sandwich.getMainName()).isEqualTo("Bosna");
+        assertThat(sandwich.getIngredients()).containsExactly("White bread", "Bratwurst", "Onions", "Tomato ketchup", "Mustard", "Curry powder");
     }
 }
