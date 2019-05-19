@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.json.JsonUtils;
+
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -59,17 +62,30 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-        TextView alsoKnownTv = findViewById(R.id.also_known_text);
-        alsoKnownTv.setText(TextUtils.join(", ", sandwich.getAlsoKnownAs()));
+        populateTextView(sandwich.getAlsoKnownAs(), R.id.also_known_label, R.id.also_known_text);
+        populateTextView(sandwich.getPlaceOfOrigin(), R.id.origin_label, R.id.origin_text);
+        populateTextView(sandwich.getDescription(), R.id.description_label, R.id.description_text);
+        populateTextView(sandwich.getIngredients(), R.id.ingredients_label, R.id.ingredients_text);
+    }
 
-        TextView descriptionTv = findViewById(R.id.description_text);
-        descriptionTv.setText(sandwich.getDescription());
+    private void populateTextView(String sandwichDetail, int labelTvRes, int dataTvRes) {
+        TextView dataTv = findViewById(dataTvRes);
+        if (sandwichDetail.isEmpty()) {
+            findViewById(labelTvRes).setVisibility(View.GONE);
+            dataTv.setVisibility(View.GONE);
+        } else {
+            dataTv.setText(sandwichDetail);
+        }
+    }
 
-        TextView ingredientsTv = findViewById(R.id.ingredients_text);
-        ingredientsTv.setText(TextUtils.join(", ", sandwich.getIngredients()));
-
-        TextView originTv = findViewById(R.id.origin_text);
-        originTv.setText(sandwich.getPlaceOfOrigin());
+    private void populateTextView(List<String> sandwichDetail, int labelTvRes, int dataTvRes) {
+        TextView dataTv = findViewById(dataTvRes);
+        if (sandwichDetail.isEmpty()) {
+            findViewById(labelTvRes).setVisibility(View.GONE);
+            dataTv.setVisibility(View.GONE);
+        } else {
+            dataTv.setText(TextUtils.join(", ", sandwichDetail));
+        }
     }
 
     private void loadImage() {
