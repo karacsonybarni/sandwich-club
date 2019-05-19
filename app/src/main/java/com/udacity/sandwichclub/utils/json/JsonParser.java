@@ -14,17 +14,14 @@ abstract class JsonParser {
 
     abstract void parseField(String fieldName);
 
-    void parseNext() {
-        if (charPosition >= json.length()) {
-            return;
-        }
-
-        boolean isAtQuotes = json.charAt(charPosition) == '"';
-        if (isAtQuotes) {
-            onQuotes();
-        } else {
-            charPosition++;
-            parseNext();
+    void parseJson() {
+        while (charPosition < json.length()) {
+            boolean isAtQuotes = json.charAt(charPosition) == '"';
+            if (isAtQuotes) {
+                onQuotes();
+            } else {
+                charPosition++;
+            }
         }
     }
 

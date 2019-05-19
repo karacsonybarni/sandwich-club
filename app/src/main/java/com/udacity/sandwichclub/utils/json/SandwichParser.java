@@ -26,7 +26,7 @@ class SandwichParser extends JsonParser {
     }
 
     private Sandwich parse() {
-        parseNext();
+        parseJson();
         return sandwich;
     }
 
@@ -51,44 +51,36 @@ class SandwichParser extends JsonParser {
             case INGREDIENTS:
                 parseIngredients();
                 break;
-            default:
-                parseNext();
         }
     }
 
     private void parseMainName() {
         String mainName = parseStringValueOfField();
         sandwich.setMainName(mainName);
-        parseNext();
     }
 
     private void parseAlsoKnownAs() {
         List<String> alsoKnownAs = parseArrayValueOfField();
         sandwich.setAlsoKnownAs(alsoKnownAs);
-        parseNext();
     }
 
     private void parsePlaceOfOrigin() {
         String placeOfOrigin = parseStringValueOfField();
         sandwich.setPlaceOfOrigin(placeOfOrigin);
-        parseNext();
     }
 
     private void parseDescription() {
         String description = parseStringValueOfField();
         sandwich.setDescription(description);
-        parseNext();
     }
 
     private void parseImage() {
         String image = parseStringValueOfField();
         sandwich.setImage(image);
-        parseNext();
     }
 
     private void parseIngredients() {
         List<String> ingredients = parseArrayValueOfField();
         sandwich.setIngredients(ingredients);
-        parseNext();
     }
 }
