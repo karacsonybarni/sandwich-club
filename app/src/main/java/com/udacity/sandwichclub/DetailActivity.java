@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.json.JsonUtils;
@@ -23,8 +24,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        ImageView ingredientsIv = findViewById(R.id.image_iv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -49,9 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         populateUI();
-        Picasso.with(this)
-                .load(sandwich.getImage())
-                .into(ingredientsIv);
+        loadImage();
 
         setTitle(sandwich.getMainName());
     }
@@ -73,5 +70,23 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView originTv = findViewById(R.id.origin_text);
         originTv.setText(sandwich.getPlaceOfOrigin());
+    }
+
+    private void loadImage() {
+        final ImageView sandwichIv = findViewById(R.id.image_iv);
+        Picasso.with(this)
+                .load(sandwich.getImage())
+                .error(R.drawable.ic_broken_image_black_192)
+                .into(sandwichIv, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        sandwichIv.setScaleType(ImageView.ScaleType.CENTER);
+                    }
+                });
     }
 }
